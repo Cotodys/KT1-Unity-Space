@@ -6,7 +6,7 @@ namespace Player
     {
         [SerializeField] private float speed = 5f;
         [SerializeField] private GameObject bulletPrefab; 
-
+        
         private int _currentHp = 3;
         private float _minX;
         private float _maxX;
