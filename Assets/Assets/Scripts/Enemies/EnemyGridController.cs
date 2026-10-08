@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UI;
+using UnityEngine;
 
 namespace Enemies
 {
@@ -11,11 +12,13 @@ namespace Enemies
         private readonly float _spacing;
         private readonly float _dropStep;
         private readonly float _moveInterval;
+        private readonly GameLoopManager _gameLoopManager;
+
 
         private List<EnemyView> _activeEnemies = new List<EnemyView>();
         private float _timer;
 
-        public EnemyGridController(EnemyView enemyPrefab, int rows, int cols, float spacing, float dropStep, float moveInterval)
+        public EnemyGridController(EnemyView enemyPrefab, int rows, int cols, float spacing, float dropStep, float moveInterval, UI.GameLoopManager gameLoopManager)
         {
             _enemyPrefab = enemyPrefab;
             _rows = rows;
@@ -23,6 +26,7 @@ namespace Enemies
             _spacing = spacing;
             _dropStep = dropStep;
             _moveInterval = moveInterval;
+            _gameLoopManager = gameLoopManager;
         }
 
         public void SpawnGrid()
@@ -69,7 +73,7 @@ namespace Enemies
 
                     if (enemy.transform.position.y <= playerY)
                     {
-                        Debug.Log("[Game Over] Мобы дошли до линии игрока!");
+                        _gameLoopManager.LoseGame();
                         Time.timeScale = 0f;
                     }
                 }
@@ -81,7 +85,8 @@ namespace Enemies
         {
             enemy.OnDestroyed -= HandleEnemyDestroyed;
             _activeEnemies.Remove(enemy);
-            Debug.Log($"Моб уничтожен! Оставшихся врагов: {_activeEnemies.Count}");
+
+            _gameLoopManager.AddScore(enemy.PointsValue);
         }
     }
 }
