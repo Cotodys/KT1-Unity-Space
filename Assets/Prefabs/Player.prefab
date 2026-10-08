@@ -106,3 +106,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerView
   speed: 5
+  bulletPrefab: {fileID: 4562140661472480469, guid: 1decd9642b541214ea0c88e970a5d5ab, type: 3}

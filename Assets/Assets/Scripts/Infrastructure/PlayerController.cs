@@ -16,10 +16,14 @@ namespace Player
             if (_playerView == null) return;
 
             float horizontalInput = Input.GetAxisRaw("Horizontal");
-
             if (horizontalInput != 0)
             {
                 _playerView.Move(horizontalInput);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _playerView.Shoot();
             }
         }
     }
